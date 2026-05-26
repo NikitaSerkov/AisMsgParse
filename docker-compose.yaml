@@ -5,6 +5,7 @@ services:
     build:
       context: https://github.com/NikitaSerkov/AisMsgParse.git
     container_name: ais-monitor
-    volumes:
+    volumesll:
+      - ./conf.ini:/root/conf.ini
       - ./ais-archive:/root/Archive
     restart: unless-stopped
