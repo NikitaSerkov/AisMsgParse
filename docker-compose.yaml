@@ -3,9 +3,11 @@ version: '3.8'
 services:
   ais-monitor:
     build:
-      context: https://github.com/NikitaSerkov/AisMsgParse.git
+      context: https://github.com/NikitaSerkov/AisMsgParse.git#main
     container_name: ais-monitor
-    volumesll:
+    volumes:
       - ./conf.ini:/root/conf.ini
       - ./ais-archive:/root/Archive
     restart: unless-stopped
+
+
