@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"log"
+	"net"
 	"os"
 	"os/signal"
 	"path/filepath"
@@ -13,7 +14,6 @@ import (
 	"syscall"
 	"time"
 )
-
 // ─── конфигурация (читается из conf.ini) ────────────────────────────────────
 type Config struct {
 	BaseStation string   // первая строка файла (bs)
@@ -27,7 +27,7 @@ func parseConfig(path string) (*Config, error) {
 	}
 	lines := strings.Split(string(data), "\n")
 	var clean []string
-	for _, l := range lines {
+	for _, l := range lines {cd ~/ais-monitor/AisMsgParse  
 		l = strings.TrimSpace(l)
 		if l != "" {
 			clean = append(clean, l)
@@ -53,7 +53,7 @@ func parseConfig(path string) (*Config, error) {
 // ─── структура декодированного сообщения ────────────────────────────────────
 type MessageType int
 
-const (
+const (cd ~/ais-monitor/AisMsgParse  
 	Unknown MessageType = iota
 	PositionReportClassA
 	BaseStationReport
@@ -129,7 +129,7 @@ func DecodeAisSentence(sentence string) *AisMessage {
 
 	// поля сообщения
 	fields := strings.Split(sentence[1:starIdx], ",")
-	if len(fields) < 7 {
+	if len(fields) < 7 {cd ~/ais-monitor/AisMsgParse  
 		msg.Error = "недостаточно полей"
 		return msg
 	}
@@ -167,7 +167,7 @@ func DecodeAisSentence(sentence string) *AisMessage {
 
 	// извлечение имени в зависимости от типа
 	if msg.Error == "" {
-		switch msg.MessageType {
+		switch msg.MessageTypecd ~/ais-monitor/AisMsgParse   {
 		case AidToNavigationReport:
 			if len(payloadBits) >= 163 { // 43+120
 				nameBits := payloadBits[43:163]
@@ -243,7 +243,7 @@ func parseMessageType(v int) MessageType {
 		return AidToNavigationReport
 	case 7, 13:
 		return BinaryAcknowledge
-	case 6, 8:
+	case 6, 8:cd ~/ais-monitor/AisMsgParse  
 		return BinaryAddressedMessage
 	default:
 		return Unknown
