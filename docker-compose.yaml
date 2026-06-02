@@ -1,9 +1,7 @@
-version: '3.8'
-
 services:
   ais-monitor:
     build:
-      context: https://github.com/NikitaSerkov/AisMsgParse.git#main
+      context: https://github.com/NikitaSerkov/ais-monitor.git #main
     container_name: ais-monitor
     volumes:
       - ./conf.ini:/root/conf.ini
